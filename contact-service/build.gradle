@@ -1,0 +1,136 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE') 
+        classpath('io.spring.gradle:dependency-management-plugin:0.5.0.RELEASE')
+    }
+}
+
+/*
+apply plugin: "io.spring.dependency-management"
+
+dependencyManagement {
+  imports {
+    mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:1.0.0.RELEASE'
+  }
+}
+*/
+
+allprojects {
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'io.spring.dependency-management' 
+
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+
+    eclipse {
+        classpath {
+             containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+             containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7'
+        }
+    }
+
+    repositories { 
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+        // compile('com.wstrater:commons:${version}')
+
+    }
+}
+
+project(':contact-service-common') {
+}
+
+project(':contact-service-client') {
+    apply plugin: 'maven'
+
+    dependencies {
+        compile project(':contact-service-common')
+
+        compile('com.wstrater:commons:${version}')
+
+        // compile('org.springframework.cloud:spring-cloud-config-client:${springCloudVersion}')
+        compile('org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}')
+        compile('org.springframework.cloud:spring-cloud-starter-hystrix:${springCloudVersion}')
+    }
+    
+    jar {
+        from files(
+            project(':contact-service-common').sourceSets.main.output
+        )
+//        from sourceSets.main.output
+//        from sourceSets.main.allJava
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from files(
+            sourceSets.main.allSource,
+            project(':contact-service-common').sourceSets.main.allSource
+        )
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from(
+            javadoc.destinationDir,
+            project(':contact-service-common').javadoc.destinationDir
+        ) 
+    }
+
+    artifacts {
+        archives jar
+        archives sourcesJar
+        archives javadocJar
+    }
+    
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                snapshotRepository(url: "file://${System.properties['user.home']}/.m2/repository")
+            }
+        }
+    }
+}
+
+project(':contact-service-server') {
+    apply plugin: 'spring-boot' 
+
+    dependencies {
+        compile project(':contact-service-common')
+
+        compile('com.wstrater:commons:${version}')
+
+        compile('org.springframework.boot:spring-boot-starter-actuator')
+        compile('org.springframework.boot:spring-boot-starter-web')
+        compile('org.springframework.boot:spring-boot-starter-data-jpa')
+
+        compile('org.springframework.cloud:spring-cloud-config-client:${springCloudVersion}')
+        compile('org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}')
+        compile('org.springframework.cloud:spring-cloud-starter-hystrix:${springCloudVersion}')
+
+        // compile('org.springframework.boot:spring-boot-starter-data-jpa')
+        // compile('org.springframework.boot:spring-boot-starter-jersey')
+        // compile('org.springframework.boot:spring-boot-starter-remote-shell')
+        // compile('org.springframework.boot:spring-boot-starter-security')
+
+        compile('com.netflix.blitz4j:blitz4j:1.35')
+
+        testCompile('org.springframework.boot:spring-boot-starter-test') 
+
+        runtime('com.h2database:h2')
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}

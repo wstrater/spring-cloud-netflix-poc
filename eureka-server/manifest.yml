@@ -1,0 +1,5 @@
+---
+applications:
+- name: contact-service
+#  env:
+#    SPRING_PROFILES_ACTIVE: cloud

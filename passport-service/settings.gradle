@@ -1,0 +1,2 @@
+rootProject.name='passport-service' 
+include 'passport-service-common', 'passport-service-client', 'passport-service-server'

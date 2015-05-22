@@ -1,0 +1,15 @@
+server:
+  port: ${PORT:8888}
+
+spring:
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+#          searchLocations: file://../config-data
+          searchLocations: file:///home/wstrater/github/spring-cloud-netflix-poc/config-data
+        git:
+#          uri: file:///home/wstrater/github/spring-cloud-netflix-poc/config-data
+          uri: file:///usr/local/spring-1.3.0.BUILD-SNAPSHOT/joshlong/bootiful-microservices-config
