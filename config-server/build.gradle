@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE') 
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath('io.spring.gradle:dependency-management-plugin:0.5.0.RELEASE')
     }
 }
@@ -29,7 +29,7 @@ repositories {
 }
 
 dependencies {
-    compile('org.springframework.cloud:spring-cloud-config-server:${springCloudVersion}')
+    compile("org.springframework.cloud:spring-cloud-config-server:${springCloudVersion}")
 }
 
 task wrapper(type: Wrapper) {

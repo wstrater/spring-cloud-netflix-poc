@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath('org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}') 
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath('io.spring.gradle:dependency-management-plugin:0.5.0.RELEASE')
     }
 }
@@ -22,7 +22,7 @@ allprojects {
 }
 
 subprojects {
-    apply plugin: "java"
+    apply plugin: 'java'
     apply plugin: 'eclipse'
     apply plugin: 'io.spring.dependency-management' 
 
@@ -42,8 +42,8 @@ subprojects {
     }
 
     dependencies {
-        compile('com.wstrater:contact-service-client:${version}')
-        // compile('com.wstrater:contact-service-common:${version}')
+        compile("com.wstrater:contact-service-client:${version}")
+        // compile("com.wstrater:contact-service-common:${version}")
     }
 }
 
@@ -72,16 +72,16 @@ project(':passport-service-server') {
     dependencies {
         compile project(':passport-service-common')
 
-        compile('com.wstrater:commons:${version}')
+        compile("com.wstrater:commons:${version}")
 
         compile('org.springframework.boot:spring-boot-starter-actuator')
         compile('org.springframework.boot:spring-boot-starter-web')
         // compile('org.springframework.boot:spring-boot-starter-data-jpa')
 
-        compile('org.springframework.cloud:spring-cloud-config-client:${springCloudVersion}')
-        compile('org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}')
-        compile('org.springframework.cloud:spring-cloud-starter-feign:${springCloudVersion}')
-        compile('org.springframework.cloud:spring-cloud-starter-hystrix:${springCloudVersion}')
+        compile("org.springframework.cloud:spring-cloud-config-client:${springCloudVersion}")
+        compile("org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}")
+        compile("org.springframework.cloud:spring-cloud-starter-feign:${springCloudVersion}")
+        compile("org.springframework.cloud:spring-cloud-starter-hystrix:${springCloudVersion}")
 
         // compile('org.springframework.boot:spring-boot-starter-data-jpa')
         // compile('org.springframework.boot:spring-boot-starter-jersey')

@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE') 
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath('io.spring.gradle:dependency-management-plugin:0.5.0.RELEASE')
     }
 }
@@ -42,7 +42,7 @@ subprojects {
     }
 
     dependencies {
-        // compile('com.wstrater:commons:${version}')
+        // compile("com.wstrater:commons:${version}")
 
     }
 }
@@ -56,11 +56,12 @@ project(':contact-service-client') {
     dependencies {
         compile project(':contact-service-common')
 
-        compile('com.wstrater:commons:${version}')
+        // ******* Breaks the pom *******
+        // compile("com.wstrater:commons:${version}")
 
-        // compile('org.springframework.cloud:spring-cloud-config-client:${springCloudVersion}')
-        compile('org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}')
-        compile('org.springframework.cloud:spring-cloud-starter-hystrix:${springCloudVersion}')
+        // compile("org.springframework.cloud:spring-cloud-config-client:${springCloudVersion}")
+        compile("org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}")
+        compile("org.springframework.cloud:spring-cloud-starter-hystrix:${springCloudVersion}")
     }
     
     jar {
@@ -108,15 +109,15 @@ project(':contact-service-server') {
     dependencies {
         compile project(':contact-service-common')
 
-        compile('com.wstrater:commons:${version}')
+        compile("com.wstrater:commons:${version}")
 
         compile('org.springframework.boot:spring-boot-starter-actuator')
         compile('org.springframework.boot:spring-boot-starter-web')
         compile('org.springframework.boot:spring-boot-starter-data-jpa')
 
-        compile('org.springframework.cloud:spring-cloud-config-client:${springCloudVersion}')
-        compile('org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}')
-        compile('org.springframework.cloud:spring-cloud-starter-hystrix:${springCloudVersion}')
+        compile("org.springframework.cloud:spring-cloud-config-client:${springCloudVersion}")
+        compile("org.springframework.cloud:spring-cloud-starter-eureka:${springCloudVersion}")
+        compile("org.springframework.cloud:spring-cloud-starter-hystrix:${springCloudVersion}")
 
         // compile('org.springframework.boot:spring-boot-starter-data-jpa')
         // compile('org.springframework.boot:spring-boot-starter-jersey')
